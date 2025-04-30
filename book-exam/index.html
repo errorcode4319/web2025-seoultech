@@ -4,26 +4,66 @@
   <meta charset="UTF-8">
   <title>테이블 예제</title>
   <style>
-    table {
-      border-collapse: collapse;
-      width: 80%;
-      margin: 20px auto;
-    }
-    th, td {
-      border: 1px solid #444;
-      padding: 8px 12px;
-      text-align: center;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    a {
-      color: #0077cc;
-      text-decoration: none;
-    }
-  </style>
+      body {
+          background: #f4f6fa;
+          font-family: 'Segoe UI', '맑은 고딕', Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+      .table-container {
+          max-width: 950px;
+          margin: 60px auto;
+          background: #fff;
+          border-radius: 16px;
+          box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+          padding: 32px 24px;
+      }
+      table {
+          width: 100%;
+          border-collapse: separate;
+          border-spacing: 0;
+          background: #fff;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      }
+      th, td {
+          padding: 16px 10px;
+          text-align: left;
+          vertical-align: top;
+          border-bottom: 1px solid #e3e8f0;
+          font-size: 1rem;
+      }
+      th {
+          background: #f0f4f8;
+          color: #2d3a4b;
+          font-weight: 700;
+      }
+      tr:last-child td {
+          border-bottom: none;
+      }
+      tr:hover td {
+          background: #f7fbff;
+          transition: background 0.2s;
+      }
+      a {
+          color: #4f8cff;
+          text-decoration: none;
+          font-weight: 500;
+          transition: color 0.2s;
+      }
+      a:hover {
+          color: #2563ea;
+          text-decoration: underline;
+      }
+      /* 비고 열 가운데 정렬 */
+      td:last-child, th:last-child {
+          text-align: center;
+      }
+    </style>
 </head>
 <body>
+  <div class="table-container">
   <table>
     <thead>
       <tr>
@@ -107,5 +147,6 @@
       </tr>
     </tbody>
   </table>
+  </div>
 </body>
 </html>

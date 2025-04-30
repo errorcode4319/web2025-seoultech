@@ -1,11 +1,76 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>프로젝트 진행 예정</title>
+    <meta charset="UTF-8">
+    <title>주요 링크 목록</title>
+    <style>
+        body {
+            background: #f4f6fa;
+            font-family: 'Segoe UI', '맑은 고딕', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 32px 24px;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3a4b;
+            margin-bottom: 28px;
+            font-size: 2rem;
+            letter-spacing: -1px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            margin-bottom: 18px;
+        }
+        li:last-child {
+            margin-bottom: 0;
+        }
+        a {
+            display: block;
+            padding: 14px 18px;
+            background: #f0f4f8;
+            border-radius: 8px;
+            color: #2d3a4b;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        a:hover {
+            background: #4f8cff;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(79,140,255,0.15);
+        }
+        /* 불릿 아이콘 커스텀 */
+        li::before {
+            content: "(๑'ᵕ'๑)⸝*";
+            color: #4f8cff;
+            font-size: 1.3rem;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
-    <h1>개인프로젝트 진행 예정 (기간: 5/6 ~ 6/9)</h1>
-    <a href="./book-exam/index.html">교재 챕터별 예제 링크 모음</a>
+    <div class="container">
+        <h1>주요 링크</h1>
+        <ul>
+          <li><a href="./project/index.html">개인 프로젝트</a></li>
+          <li><a href="./book-exam/index.html">챕터별 예제 모음</a></li>
+          <li><a href="./dont_click/index.html">절대로 클릭 금지</a></li>
+        </ul>
+    </div>
 </body>
 </html>

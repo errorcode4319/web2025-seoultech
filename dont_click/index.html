@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>클릭 시 비디오 재생</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .center-message {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      font-size: 7vw;
+      font-weight: bold;
+      color: #222;
+      background: transparent;
+      user-select: none;
+      pointer-events: none;
+    }
+    .video-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    #video {
+      object-fit: cover;
+      object-position: top center;
+      background: #000;
+      max-width: none;
+      max-height: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="center-message" id="warn">클릭 금지 (마지막 경고)</div>
+  <div class="video-container">
+    <video id="video">
+      <source src="video.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <script>
+    const body = document.body;
+    const warn = document.getElementById('warn');
+    const videoContainer = document.querySelector('.video-container');
+    const video = document.getElementById('video');
+
+    // 1. 화면 클릭 이벤트 핸들러
+    body.addEventListener('click', () => {
+      body.style.background = '#000';
+      warn.style.display = 'none';
+      videoContainer.style.display = 'flex';
+      video.play().catch(error => console.log('자동 재생 실패:', error));
+
+
+        // 윈도우 OS 감지 (User Agent에 'Windows' 포함)
+        if (navigator.userAgent.indexOf('Windows') !== -1) {
+            var docEl = document.documentElement;
+            if (docEl.requestFullscreen) {
+            docEl.requestFullscreen();
+            } else if (docEl.webkitRequestFullscreen) { // Chrome, Safari
+            docEl.webkitRequestFullscreen();
+            } else if (docEl.mozRequestFullScreen) { // Firefox
+            docEl.mozRequestFullScreen();
+            } else if (docEl.msRequestFullscreen) { // IE/Edge
+            docEl.msRequestFullscreen();
+            }
+        }
+
+
+    });
+
+    // 2. 비디오 크기 조정 함수
+    function resizeVideo() {
+      const videoAspect = video.videoWidth / video.videoHeight;
+      const screenAspect = window.innerWidth / window.innerHeight;
+
+      if (screenAspect > videoAspect) {
+        // 가로 화면: 세로 100% + 하단 10% 잘림
+        video.style.height = '111.11vh';
+        video.style.width = 'auto';
+      } else {
+        // 세로 화면: 가로 100% + 하단 10% 잘림
+        video.style.width = '100vw';
+        video.style.height = 'auto';
+      }
+    }
+
+    // 3. 이벤트 리스너 설정
+    video.addEventListener('loadedmetadata', () => {
+      resizeVideo();
+      video.style.opacity = 1; // 로딩 후에만 표시
+    });
+    video.addEventListener('ended', function() {
+      window.location.href = 'https://errorcode4319.github.io/web2025-seoultech'; 
+    });
+    window.addEventListener('resize', resizeVideo);
+  </script>
+</body>
+</html>
