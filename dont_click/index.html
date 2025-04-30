@@ -52,7 +52,7 @@
   <div class="center-message" id="warn">클릭 금지 (마지막 경고)</div>
   <div class="video-container">
     <video id="video">
-      <source src="video.mp4" type="video/mp4">
+      <!--<source id="video_source" src="video1.mp4" type="video/mp4">-->
     </video>
   </div>
 
@@ -62,12 +62,17 @@
     const videoContainer = document.querySelector('.video-container');
     const video = document.getElementById('video');
 
+    const video_source = document.getElementById('video_source');
+
     // 1. 화면 클릭 이벤트 핸들러
     body.addEventListener('click', () => {
-      body.style.background = '#000';
-      warn.style.display = 'none';
-      videoContainer.style.display = 'flex';
-      video.play().catch(error => console.log('자동 재생 실패:', error));
+        body.style.background = '#000';
+        warn.style.display = 'none';
+        videoContainer.style.display = 'flex';
+        
+       
+        video.appendChild(createVideoSource());
+        video.play().catch(error => console.log('자동 재생 실패:', error));
 
 
         // 윈도우 OS 감지 (User Agent에 'Windows' 포함)
@@ -83,7 +88,7 @@
             docEl.msRequestFullscreen();
             }
         }
-
+        
 
     });
 
@@ -101,6 +106,24 @@
         video.style.width = '100vw';
         video.style.height = 'auto';
       }
+    }
+
+    function createVideoSource() {
+        const videos = [
+            "video1.mp4", 
+            "video2.mp4",
+            "video3.mp4", 
+            "video4.mp4",
+            "video5.mp4"
+        ];
+        const idx = Math.floor(Math.random() * videos.length);
+        const video_path = videos[idx];
+
+        const source = document.createElement('source');
+        source.src = video_path;
+        source.type = 'video/mp4';
+        
+        return source 
     }
 
     // 3. 이벤트 리스너 설정
