@@ -39,31 +39,6 @@ tr:hover {
   background-color: #f5f7fa;
 }
 
-/* 버튼 스타일 */
-button {
-  background: linear-gradient(135deg, #2196f3, #0d47a1);
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s;
-  margin: 0.5rem;
-}
-
-button:hover {
-  background: linear-gradient(135deg, #0d47a1, #2196f3);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-button:disabled {
-  background: #b0bec5;
-  cursor: not-allowed;
-}
-
 /* 추가: 인풋, 카드 등 */
 input, select {
   padding: 0.75rem;
