@@ -1,0 +1,148 @@
+body {
+  background-color: #f7f9fc;
+  color: #2c3e50;
+  min-height: 100vh;
+}
+.container {
+    display: flex;
+    height: calc(100vh - 80px);
+    width: 100vw;
+}
+.main-left {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #000;
+    padding: 10px 0 10px 0;
+    justify-content: space-between;
+}
+.config-global {
+    height: 25%;
+    border-radius: 10px;
+    display:flex;
+    background: #e4e3e3;
+    border: 2px solid #8d8d8d;
+    margin: 0 10px 10px 10px;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    min-height: 200px;
+}
+.config-global button {
+    border-radius: 3px;
+    font-size: 0.8rem;
+    background: #10233d;
+    color: #b3e0ff; /* 연한 파란색, 잘 보임 */
+    border: 2px solid #1a60b0; /* 파란색 테두리 */
+    cursor: pointer;
+    align-self: left;
+}
+.buttons-row button:hover {
+  background: #10233d;
+  color: #e6f7ff;
+}
+
+.setting-table {
+    border-collapse: separate;
+    width: 90%;
+    height: 80%;
+    margin: 5px;
+}
+.setting-table td {
+    padding: 0;
+    vertical-align: middle;
+    font-size: 15px;
+}
+.setting-table button {
+    width: 80%;
+}
+.setting-table label {
+    margin-right: 1px;
+    font-size: 0.9em;
+    width: 20%;
+}
+.setting-input {
+    width: 50%;
+    height: 28px;
+    border: 1.5px solid #bbb;
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 2px 8px;
+    box-sizing: border-box;
+    background: #fafafa;
+    outline: none;
+    transition: border 0.2s;
+}
+.setting-input:focus {
+    border: 1.5px solid #5a9bd4;
+}
+.setting-table .label-col { width: 20%; }
+.setting-table .input-col { width: 40%; }
+
+.config-sylinder {
+    height: 65%;
+    border: 2px solid #000;
+    margin: 0 10px 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    min-height: 300px;
+}
+.buttons-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px 0 10px;
+    height: 30px;
+}
+.buttons-row button {
+    flex: 1 1 0;
+    border-radius: 3px;
+    margin: 0 10px 0 0;
+    font-size: 0.8rem;
+    background: #10233d;
+    color: #b3e0ff; /* 연한 파란색, 잘 보임 */
+    border: 2px solid #1a60b0; /* 파란색 테두리 */
+    cursor: pointer;
+}
+
+.buttons-row button:hover {
+  background: #10233d;
+  color: #e6f7ff;
+}
+
+.buttons-row button:last-child { margin-right: 0; }
+
+.main-right {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0 10px 0;
+}
+.canvas-area {
+    flex: 2 1 0;
+    border: 2px solid #000;
+    margin: 0 10px 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4em;
+}
+.textfield-area {
+    flex: 1 1 0;
+    border: 2px solid #000;
+    margin: 0 10px 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+}
+.progress-bar-area {
+    margin: 0 10px 0 10px;
+    border: 2px solid #000;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+}

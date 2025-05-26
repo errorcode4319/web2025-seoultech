@@ -13,43 +13,6 @@ body {
   min-height: 100vh;
 }
 
-/* 표(테이블) 스타일 */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1.5rem 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-th, td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-th {
-  background-color: #e3f2fd;
-  color: #0d47a1;
-  font-weight: 600;
-}
-
-tr:hover {
-  background-color: #f5f7fa;
-}
-
-/* 추가: 인풋, 카드 등 */
-input, select {
-  padding: 0.75rem;
-  border: 1px solid #cfd8dc;
-  border-radius: 6px;
-  font-size: 1rem;
-  margin: 0.5rem 0;
-  width: 100%;
-  max-width: 400px;
-}
-
 .card {
   background: white;
   border-radius: 10px;

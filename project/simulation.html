@@ -7,6 +7,7 @@
     
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/simulation.css">
 </head>
 <body>
     <header class="header-container">
@@ -14,7 +15,81 @@
         <a href="https://github.com/errorcode4319/web2025-seoultech" class="github-link"><img src="img/github.png" alt="Github 로고 이미지"></a>
     </header>
 
-    <h1>[시뮬레이션] 페이지 업데이트 예정 (~5/30)</h1>
+    <div class="container">
+    
+    <div class="main-left">
+        <button>Result</button>
+        <div class="config-global">
+            <table class="setting-table">
+            <tr>
+                <td class="label-col">
+                <label for="size-width">유동장 크기</label>
+                </td>
+                <td class="input-col">
+                <label for="size-width">가로</label>
+                <input type="number" id="size-width" class="setting-input">
+                <label for="size-width">m</label>
+                </td>
+                <td class="input-col">
+                <label for="size-height">세로</label>
+                <input type="number" id="size-height" class="setting-input">
+                <label for="size-height">m</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-col">
+                <label for="size-width">분할 개수</label>
+                </td>
+                <td class="input-col">
+                <label for="split-width">가로</label>
+                <input type="number" id="split-width" class="setting-input">
+                </td>
+                <td class="input-col">
+                <label for="split-height">세로</label>
+                <input type="number" id="split-height" class="setting-input">
+                </td>
+            </tr>
+            <tr>
+                <td class="label-col">
+                <label for="size-width">기본 속도</label></td>
+                <td class="input-col">
+                <label for="velocity-x">X 축</label>
+                <input type="number" id="velocity-x" class="setting-input">
+                <label for="velocity-x">m/s</label>
+                </td>
+                <td class="input-col">
+                <label for="velocity-y">Y 축</label>
+                <input type="number" id="velocity-y" class="setting-input">
+                <label for="velocity-y">m/s</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-col"></td>
+                <td class="input-col"></td>
+                <td class="input-col">
+                    <button>업데이트</button>
+                </td>
+            </tr>
+            </table>
+
+
+        </div>
+        <div class="config-sylinder">Config2</div>
+        <div class="buttons-row">
+            <button>설정 저장</button>
+            <button>설정 불러오기</button>
+            <button>실행</button>
+        </div>
+    </div>
+    
+    <div class="main-right">
+      <div class="canvas-area">CANVAS</div>
+      <div class="textfield-area">TEXT Field</div>
+      <div class="progress-bar-area">progress bar</div>
+    </div>
+
+
+    </div>
 
 </body>
 </html>
