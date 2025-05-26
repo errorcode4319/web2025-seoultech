@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주코프스키 변환 시각화</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .visualization {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .canvas-container {
+            width: 48%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            background-color: white;
+        }
+        .controls {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .control-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 200px;
+            font-weight: bold;
+        }
+        input[type="range"] {
+            width: 300px;
+            vertical-align: middle;
+        }
+        .value-display {
+            display: inline-block;
+            width: 50px;
+            text-align: center;
+            margin-left: 10px;
+        }
+        .canvas-title {
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .explanation {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f7ff;
+            border-radius: 4px;
+            border-left: 4px solid #0066cc;
+        }
+        .grid-line {
+            stroke: #eee;
+            stroke-width: 1;
+        }
+        .axis-line {
+            stroke: #999;
+            stroke-width: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>주코프스키 변환 시각화</h1>
+
+        <div class="visualization">
+            <div class="canvas-container">
+                <div class="canvas-title">실린더 (z-평면)</div>
+                <canvas id="cylinderCanvas" width="600" height="400"></canvas>
+            </div>
+            <div class="canvas-container">
+                <div class="canvas-title">익형 (w-평면)</div>
+                <canvas id="airfoilCanvas" width="600" height="400"></canvas>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="radiusSlider">실린더 반지름 (R):</label>
+                <input type="range" id="radiusSlider" min="0.5" max="2" step="0.01" value="1">
+                <span id="radiusValue" class="value-display">1.00</span>
+            </div>
+            
+            <div class="control-group">
+                <label for="offsetXSlider">실린더 X축 오프셋 (h):</label>
+                <input type="range" id="offsetXSlider" min="-0.5" max="0.5" step="0.01" value="0.1">
+                <span id="offsetXValue" class="value-display">0.10</span>
+            </div>
+            
+            <div class="control-group">
+                <label for="offsetYSlider">실린더 Y축 오프셋 (k):</label>
+                <input type="range" id="offsetYSlider" min="-0.5" max="0.5" step="0.01" value="0.1">
+                <span id="offsetYValue" class="value-display">0.10</span>
+            </div>
+            
+            <div class="control-group">
+                <label for="aSlider">변환 매개변수 a:</label>
+                <input type="range" id="aSlider" min="0.5" max="2" step="0.01" value="1">
+                <span id="aValue" class="value-display">1.00</span>
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3>주코프스키 변환 (Joukowski Transformation)</h3>
+            <p>주코프스키 변환은 복소 평면에서 원을 에어포일 형상으로 변환하는 방법입니다. 변환식은 다음과 같습니다:</p>
+            <p style="text-align: center;"><strong>w = z + a²/z</strong></p>
+            <p>여기서:</p>
+            <ul>
+                <li><strong>z</strong>는 원점에서 오프셋된 원(실린더)을 나타내는 복소수입니다.</li>
+                <li><strong>w</strong>는 변환 후의 에어포일 좌표를 나타내는 복소수입니다.</li>
+                <li><strong>a</strong>는 변환 매개변수입니다.</li>
+            </ul>
+            <p>실린더의 반지름(R)과 오프셋(h, k)을 조절하면 다양한 형태의 에어포일을 생성할 수 있습니다.</p>
+        </div>
+    </div>
+
+    <script>
+        // 캔버스 및 컨텍스트 가져오기
+        const cylinderCanvas = document.getElementById('cylinderCanvas');
+        const airfoilCanvas = document.getElementById('airfoilCanvas');
+        const cylinderCtx = cylinderCanvas.getContext('2d');
+        const airfoilCtx = airfoilCanvas.getContext('2d');
+        
+        // 슬라이더 및 값 표시 요소 가져오기
+        const radiusSlider = document.getElementById('radiusSlider');
+        const offsetXSlider = document.getElementById('offsetXSlider');
+        const offsetYSlider = document.getElementById('offsetYSlider');
+        const radiusValue = document.getElementById('radiusValue');
+        const offsetXValue = document.getElementById('offsetXValue');
+        const offsetYValue = document.getElementById('offsetYValue');
+        const aSlider = document.getElementById('aSlider');
+        const aValue = document.getElementById('aValue');
+        let a = parseFloat(aSlider.value);
+        
+        aSlider.addEventListener('input', function() {
+            a = parseFloat(this.value);
+            aValue.textContent = a.toFixed(2);
+            drawVisualization();
+        });
+
+        // 변수 초기화
+        let radius = parseFloat(radiusSlider.value);
+        let offsetX = parseFloat(offsetXSlider.value);
+        let offsetY = parseFloat(offsetYSlider.value);
+        
+        // 슬라이더 이벤트 리스너
+        radiusSlider.addEventListener('input', function() {
+            radius = parseFloat(this.value);
+            radiusValue.textContent = radius.toFixed(2);
+            drawVisualization();
+        });
+        
+        offsetXSlider.addEventListener('input', function() {
+            offsetX = parseFloat(this.value);
+            offsetXValue.textContent = offsetX.toFixed(2);
+            drawVisualization();
+        });
+        
+        offsetYSlider.addEventListener('input', function() {
+            offsetY = parseFloat(this.value);
+            offsetYValue.textContent = offsetY.toFixed(2);
+            drawVisualization();
+        });
+        
+        // 화면 설정
+        function setupCanvas(canvas, ctx) {
+            // 캔버스 크기 얻기
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            // 좌표계 중앙으로 이동
+            ctx.translate(width / 2, height / 2);
+            
+            // y축 방향 뒤집기 (수학적 좌표계로 변경)
+            ctx.scale(1, -1);
+            
+            return { width, height };
+        }
+        
+        // 그리드 그리기
+        function drawGrid(ctx, width, height, scale) {
+            const gridSize = 0.5;
+            const gridExtentX = Math.ceil((width / 2) / scale / gridSize);
+            const gridExtentY = Math.ceil((height / 2) / scale / gridSize);
+            
+            ctx.beginPath();
+            ctx.strokeStyle = '#eee';
+            ctx.lineWidth = 0.5;
+            
+            // 세로선
+            for (let i = -gridExtentX; i <= gridExtentX; i++) {
+                if (i === 0) continue; // x축은 나중에 그림
+                const x = i * gridSize * scale;
+                ctx.moveTo(x, -height / 2);
+                ctx.lineTo(x, height / 2);
+            }
+            
+            // 가로선
+            for (let i = -gridExtentY; i <= gridExtentY; i++) {
+                if (i === 0) continue; // y축은 나중에 그림
+                const y = i * gridSize * scale;
+                ctx.moveTo(-width / 2, y);
+                ctx.lineTo(width / 2, y);
+            }
+            
+            ctx.stroke();
+            
+            // 축 그리기
+            ctx.beginPath();
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 1;
+            
+            // x축
+            ctx.moveTo(-width / 2, 0);
+            ctx.lineTo(width / 2, 0);
+            
+            // y축
+            ctx.moveTo(0, -height / 2);
+            ctx.lineTo(0, height / 2);
+            
+            ctx.stroke();
+        }
+        
+        // 실린더 그리기
+        function drawCylinder(ctx, radius, offsetX, offsetY, scale) {
+            ctx.beginPath();
+            ctx.strokeStyle = '#0066cc';
+            ctx.lineWidth = 2;
+            ctx.arc(offsetX * scale, offsetY * scale, radius * scale, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // 중심점 표시
+            ctx.beginPath();
+            ctx.fillStyle = 'red';
+            ctx.arc(offsetX * scale, offsetY * scale, 3, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 주코프스키 변환에서 중요한 점 (z = a)
+            ctx.beginPath();
+            ctx.fillStyle = 'green';
+            ctx.arc(1 * scale, 0, 3, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 중요 점 레이블
+            ctx.save();
+            ctx.scale(1, -1); // 텍스트를 올바르게 표시하기 위해 y 스케일 복원
+            ctx.font = '12px Arial';
+            ctx.fillStyle = 'black';
+            ctx.fillText(`중심 (${offsetX}, ${offsetY})`, (offsetX * scale) + 5, -(offsetY * scale) - 5);
+            ctx.fillText('z = a', (1 * scale) + 5, -5);
+            ctx.restore();
+        }
+        
+        // 주코프스키 변환
+        function joukowskiTransform(z) {
+            const w = {
+                x: z.x + (a * a * z.x) / (z.x * z.x + z.y * z.y),
+                y: z.y - (a * a * z.y) / (z.x * z.x + z.y * z.y)
+            };
+            return w;
+        }
+        
+        // 익형 그리기
+        function drawAirfoil(ctx, radius, offsetX, offsetY, scale) {
+            const points = [];
+            const numPoints = 200;
+            
+            // 원 위의 점들을 생성
+            for (let i = 0; i <= numPoints; i++) {
+                const theta = (i / numPoints) * Math.PI * 2;
+                const x = offsetX + radius * Math.cos(theta);
+                const y = offsetY + radius * Math.sin(theta);
+                
+                // 주코프스키 변환 적용
+                const z = { x, y };
+                const w = joukowskiTransform(z);
+                
+                points.push(w);
+            }
+            
+            // 익형 그리기
+            ctx.beginPath();
+            ctx.strokeStyle = '#0066cc';
+            ctx.lineWidth = 2;
+            
+            ctx.moveTo(points[0].x * scale, points[0].y * scale);
+            for (let i = 1; i < points.length; i++) {
+                ctx.lineTo(points[i].x * scale, points[i].y * scale);
+            }
+            
+            ctx.stroke();
+        }
+        
+        // 전체 시각화 그리기
+        function drawVisualization() {
+            // 캔버스 설정
+            const cylinderDims = setupCanvas(cylinderCanvas, cylinderCtx);
+            const airfoilDims = setupCanvas(airfoilCanvas, airfoilCtx);
+            
+            // 캔버스 지우기
+            cylinderCtx.clearRect(-cylinderDims.width / 2, -cylinderDims.height / 2, cylinderDims.width, cylinderDims.height);
+            airfoilCtx.clearRect(-airfoilDims.width / 2, -airfoilDims.height / 2, airfoilDims.width, airfoilDims.height);
+            
+            // 스케일 계산 (뷰포트에 맞게 조정)
+            const cylinderScale = Math.min(cylinderDims.width, cylinderDims.height) / 6;
+            const airfoilScale = Math.min(airfoilDims.width, airfoilDims.height) / 6;
+            
+            // 그리드 그리기
+            drawGrid(cylinderCtx, cylinderDims.width, cylinderDims.height, cylinderScale);
+            drawGrid(airfoilCtx, airfoilDims.width, airfoilDims.height, airfoilScale);
+            
+            // 실린더 그리기
+            drawCylinder(cylinderCtx, radius, offsetX, offsetY, cylinderScale);
+            
+            // 익형 그리기
+            drawAirfoil(airfoilCtx, radius, offsetX, offsetY, airfoilScale);
+            
+            // 캔버스 변환 되돌리기
+            cylinderCtx.setTransform(1, 0, 0, 1, 0, 0);
+            airfoilCtx.setTransform(1, 0, 0, 1, 0, 0);
+        }
+        
+        // 초기 시각화 그리기
+        drawVisualization();
+        
+        // 창 크기 변경 시 다시 그리기
+        window.addEventListener('resize', function() {
+            drawVisualization();
+        });
+    </script>
+</body>
+</html>

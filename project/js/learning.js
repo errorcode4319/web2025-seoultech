@@ -14,6 +14,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const files = [
         {name: '1. 공기역학이란?', value: 'doc-01.pdf'},
         {name: '2. 주요 운동 방정식', value: 'doc-02.pdf'},
+        {name: '[부록] 주코프스키 변환 시각화', value: 'joukowski_transform.html'},
     ];
 
     // 각 파일에 대해 file-item div 생성 및 추가
