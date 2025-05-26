@@ -1,0 +1,20 @@
+.header-container {
+  display: flex;
+  justify-content: space-between; /* 양 끝에 배치 */
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #ffffff, #1e88e5);
+  color: white;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.home-link img, .github-link img {
+  height: 40px; /* 이미지 높이 조정 */
+  transition: transform 0.2s;
+}
+
+.home-link:hover img,
+.github-link:hover img {
+  transform: scale(1.1);
+}

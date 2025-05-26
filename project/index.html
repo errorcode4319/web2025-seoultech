@@ -2,9 +2,50 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>개인 프로젝트</title>
+    <title>AirFlowX</title>
+    <link rel="icon" href="resource/favicon_32x32.png" type="image/x-icon">
+    
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/video.css">
+    <link rel="stylesheet" href="css/main-page.css">
 </head>
 <body>
-    <h3>개인 프로젝트 진행 예정</h3>
+    <header class="header-container">
+        <a href="index.html" class="home-link"><img src="img/logo.png" alt="AirFlowX 로고 이미지"></a>
+        <a href="https://github.com/errorcode4319" class="github-link"><img src="img/github.png" alt="Github 로고 이미지"></a>
+    </header>
+
+    <div class="video-background">
+        <video autoplay muted loop>
+        <source src="video/video2.mp4" type="video/mp4">
+        <p>브라우저가 비디오를 지원하지 않습니다.</p>
+        </video>
+    </div>
+    <div class="content">
+        <div class="intro-section">
+        <h6>AirFlowX는 공기역학 교육 플랫폼 입니다.</h6>
+        <p>
+            본 사이트는 비압축성, 비점성 기체에 대한 원형 실린더 주위 유동장 시뮬레이션을 제공하며 <br>
+            공기역학에 대한 기초 지식을 학습할 수 있는 학습 메뉴가 제공됩니다.<br/>
+            For your information, the video you see behind is completely unrelated <br/>
+            to the project, and the original video link is <a href="https://www.youtube.com/watch?v=6xzrUWohouU">here</a> <br/>
+            더 자세한 정보를 알고 싶다면 다음 링크를 클릭하지 마십시오. 
+            <a href="fishing.html"
+            style="color: white;">(링크)</a>
+        </p>
+        </div>
+        <div class="menu-container">
+        <div class="menu-sim" onclick="location.href='simulation.html'">
+            <img src="img/simulation.png" width="80%">
+            시뮬레이션을 수행할 수 있습니다
+        </div>
+        <div class="menu-learn" onclick="location.href='learning.html'">
+            <img src="img/learning.png" width="80%">
+            공기역학에 대한 기초 지식을 학습할 수 있습니다
+        </div>
+        </div>
+
+    </div>
 </body>
 </html>
