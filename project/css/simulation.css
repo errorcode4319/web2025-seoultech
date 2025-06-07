@@ -135,13 +135,13 @@ outline: none;
 
   position: fixed;
   top: 613px;
-  left: 545px;
+  left: 547px;
 
 }
 
 .progress-bar {
   height: 100%;
-  background: #1D976C;
+  background: #007bff;
   border-radius: 10px;
 }
 
@@ -152,7 +152,7 @@ outline: none;
 
   width: 20px;
   height: 20px;
-  border: 5px solid #1D976C;
+  border: 5px solid #007bff;
   border-top: 5px solid transparent;
   border-radius: 50%;
   animation: rotate 1s linear infinite;
