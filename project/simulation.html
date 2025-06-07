@@ -9,87 +9,83 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/simulation.css">
 </head>
-<body>
+<body id="content-to-pdf">
     <header class="header-container">
         <a href="index.html" class="home-link"><img src="img/logo.png" alt="AirFlowX 로고 이미지"></a>
         <a href="https://github.com/errorcode4319/web2025-seoultech" class="github-link"><img src="img/github.png" alt="Github 로고 이미지"></a>
     </header>
 
-    <div class="container">
-    
-    <div class="main-left">
-        <button>Result</button>
-        <div class="config-global">
-            <table class="setting-table">
-            <tr>
-                <td class="label-col">
-                <label for="size-width">유동장 크기</label>
-                </td>
-                <td class="input-col">
-                <label for="size-width">가로</label>
-                <input type="number" id="size-width" class="setting-input">
-                <label for="size-width">m</label>
-                </td>
-                <td class="input-col">
-                <label for="size-height">세로</label>
-                <input type="number" id="size-height" class="setting-input">
-                <label for="size-height">m</label>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-col">
-                <label for="size-width">분할 개수</label>
-                </td>
-                <td class="input-col">
-                <label for="split-width">가로</label>
-                <input type="number" id="split-width" class="setting-input">
-                </td>
-                <td class="input-col">
-                <label for="split-height">세로</label>
-                <input type="number" id="split-height" class="setting-input">
-                </td>
-            </tr>
-            <tr>
-                <td class="label-col">
-                <label for="size-width">기본 속도</label></td>
-                <td class="input-col">
-                <label for="velocity-x">X 축</label>
-                <input type="number" id="velocity-x" class="setting-input">
-                <label for="velocity-x">m/s</label>
-                </td>
-                <td class="input-col">
-                <label for="velocity-y">Y 축</label>
-                <input type="number" id="velocity-y" class="setting-input">
-                <label for="velocity-y">m/s</label>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-col"></td>
-                <td class="input-col"></td>
-                <td class="input-col">
-                    <button>업데이트</button>
-                </td>
-            </tr>
+    <div class="container" id="main-container">
+        <div class="left">
+            <table>
+                <thead>
+                    <tr>
+                    <th>항목</th>
+                    <th></th>
+                    <th>설정</th>
+                    <th>값</th>
+                    <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>Uniform Flow</td>
+                    <td><input type="checkbox" id="check_uniflow" checked/></td>
+                    <td>Velocity</td>
+                    <td><input type="number" id="uniflow_val" min="0" max="1000" value="10" /></td>
+                    <td>m/s</td>
+                    </tr>
+                    <tr>
+                    <td>Source</td>
+                    <td><input type="checkbox" id="check_source" /></td>
+                    <td>Strength</td>
+                    <td><input type="number" id="source_val" min="0" max="10000" value="1000" /></td>
+                    <td>m^2/s</td>
+                    </tr>
+                    <tr>
+                    <td>Sink</td>
+                    <td><input type="checkbox" id="check_sink" /></td>
+                    <td>Strength</td>
+                    <td><input type="number" id="sink_val" min="0" max="10000" value="1000" /></td>
+                    <td>m^2/s</td>
+                    </tr>
+                    <tr>
+                    <td>Vortex</td>
+                    <td><input type="checkbox" id="check_vortex" /></td>
+                    <td>Circulation(Γ)</td>
+                    <td><input type="number" id="vortex_val" min="0" max="10000" value="1000" /></td>
+                    <td>m^2/s</td>
+                    </tr>
+                    <tr>
+                    <td>Doublet</td>
+                    <td><input type="checkbox" id="check_doublet" /></td>
+                    <td>Moment</td>
+                    <td><input type="number" id="doublet_val" min="0" max="10000" value="500" /></td>
+                    <td>m^3/s</td>
+                    </tr>
+                </tbody>
             </table>
-
-
+            <button class="update-button" id="config-update-button" data-html2canvas-ignore="true">Calculate</button>
+            <button class="report-button" id="report-button" data-html2canvas-ignore="true">Report Download</button>
         </div>
-        <div class="config-sylinder">Config2</div>
-        <div class="buttons-row">
-            <button>설정 저장</button>
-            <button>설정 불러오기</button>
-            <button>실행</button>
+        
+        <div class="top-right">
+            <canvas id="frame" width="500" height="500"></canvas>
         </div>
-    </div>
-    
-    <div class="main-right">
-      <div class="canvas-area">CANVAS</div>
-      <div class="textfield-area">TEXT Field</div>
-      <div class="progress-bar-area">progress bar</div>
-    </div>
+        <div class="bottom-right" data-html2canvas-ignore="true">
+            <div id="logBox" data-html2canvas-ignore="true"></div>
+            <div class="loading-spinner" id="loading" style="display: none;" data-html2canvas-ignore="true"></div>
+            <div class="progress-container" data-html2canvas-ignore="true">
+                <div class="progress-bar" id="progress" style="width: 0%;"></div>
+            </div>
+        </div>
+  </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+   <script src="js/utils.js"></script>
+   <script src="js/simulation.js"></script>
 
-    </div>
+  
 
 </body>
 </html>
