@@ -69,9 +69,6 @@ let calc_interval_id = null;
 // 전체 캔버스 초기화 및 벡터장 그리기
 function update_all() {
 
-    
-    
-
 
     let val = 0;
     let count = 0
@@ -126,6 +123,11 @@ button.addEventListener('click', function() {
         clearInterval(calc_interval_id);
         calc_interval_id = null;
     }
+
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    
     document.getElementById('config-update-button').disabled = true;
     document.getElementById('report-button').disabled = true;
 
